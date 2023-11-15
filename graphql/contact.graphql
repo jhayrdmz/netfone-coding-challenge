@@ -1,0 +1,18 @@
+extend type Query @guard @auth {
+  listContacts: [Contact!]! @paginate(defaultCount: 10)
+  viewContact(id: Int! @eq): Contact @find
+}
+
+extend type Mutation @guard @auth {
+  createContact(name: String!, contact_no: String!): Contact! @create
+  updateContact(id: ID!, name: String!, contact_no: String!): Contact! @update
+  deleteContact(id: ID! @whereKey): Contact @delete
+}
+
+type Contact {
+  id: ID!
+  name: String!
+  contact_no: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}

@@ -1,0 +1,19 @@
+extend type Query {
+    me: User! @guard @auth
+}
+
+extend type Mutation {
+  login(email: String!, password: String!): String!
+  logout: LogoutResponse! @guard
+    @field(resolver: "App\\GraphQL\\Mutations\\Logout")
+}
+
+type LogoutResponse {
+  status: LogoutStatus!
+  message: String!
+}
+
+enum LogoutStatus {
+  """TOKEN_REVOKED"""
+  TOKEN_REVOKED
+}
